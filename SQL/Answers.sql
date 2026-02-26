@@ -84,3 +84,51 @@ SELECT SUM(estimatedfraudamount_zar) AS total
 FROM sa_records
 
 --21. Identify the province with the highest number of cases.
+SELECT province, COUNT(recordid) AS total
+FROM sa_records
+GROUP BY province
+ORDER BY total DESC
+
+--22. Retrieve the youngest suspect in the dataset.
+SELECT MIN(age)
+FROM sa_records
+
+--23. Retrieve the oldest suspect in the dataset.
+SELECT MAX(age)
+FROM sa_records
+
+--24. Count the number of cases handled by each investigating officer.
+SELECT investigatingofficer, COUNT(recordid) AS total
+FROM sa_records
+GROUP BY investigatingofficer
+
+--25. Calculate the average Estimated Fraud Amount per crime type.
+SELECT crimetype, AVG(estimatedfraudamount_zar) AS average
+FROM sa_records
+GROUP BY crimetype
+
+--26. Display all cases occurring in Gauteng province.
+SELECT * FROM sa_records
+WHERE province='Gauteng'
+
+--27. Retrieve all Fraud cases classified as High risk.
+SELECT COUNT(recordid) AS high_risk_cases
+FROM sa_records
+WHERE risklevel='high'
+
+--28. Count the number of cases per year based on CrimeDate.
+SELECT YEAR(crimedate) AS Year, COUNT(*) AS RecordCount
+FROM sa_records
+GROUP BY YEAR(crimedate)
+ORDER BY Year
+
+--29. Display all suspects with a Financial Score below 500.
+SELECT * FROM sa_records
+WHERE financialscore<500
+
+--30. Identify the most common Crime Type in the dataset.
+SELECT crimetype, COUNT(*) AS frequency
+FROM sa_records
+GROUP BY crimetype
+ORDER BY frequency DESC
+LIMIT 1
